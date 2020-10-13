@@ -94,14 +94,8 @@ export default class MattermostView extends React.Component {
         } else if (destURL.path.match(/^\/help\//)) {
           // continue to open special case internal urls in default browser
           shell.openExternal(e.url);
-        } else if (destURL.path.match(/^\/redmine/)  || 
-                   destURL.path.match(/^\/alfresco/) || 
-                   destURL.path.match(/^\/gitlab/)   || 
-                   destURL.path.match(/^\/metabase/) || 
-                   destURL.path.match(/^\/milkode/)  || 
-                   destURL.path.match(/^\/sbin_manage/)
-                  ) {
-          // continue to open sbincloud services internal urls in default browser(which is not a mattermostlink)
+        } else if (destURL.hostname.match(/^sbincloud/) && !destURL.path.match(/^\/mattermost\//)) {
+          // continue to open sbincloud services urls in default browser(which is not mattermost)
           shell.openExternal(e.url);
         } else if (Utils.isTeamUrl(this.props.src, e.url, true) || Utils.isAdminUrl(this.props.src, e.url)) {
           e.preventDefault();
